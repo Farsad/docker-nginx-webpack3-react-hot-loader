@@ -1,0 +1,11 @@
+FROM node:8.2-alpine
+
+RUN mkdir -p /SPA
+WORKDIR /SPA
+
+RUN npm install -g -s --no-progress yarn
+ADD package.json /tmp/package.json
+WORKDIR /tmp
+RUN yarn
+WORKDIR /SPA
+RUN ln -s /tmp/node_modules && ln -s /tmp/yarn.lock

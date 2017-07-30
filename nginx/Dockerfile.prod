@@ -1,0 +1,3 @@
+FROM nginx:1.13.3
+COPY nginx.prod.conf /etc/nginx/conf.d
+RUN mkdir /wwwroot

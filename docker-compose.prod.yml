@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  spa:
+    build:
+      context: ./spa/
+      dockerfile: Dockerfile.prod
+    container_name: spa
+    command: "node_modules/.bin/webpack"
+    depends_on:
+      - nginx
+    environment:
+      NODE_ENV: production
+    volumes:
+      - /SPA/node_modules
+      - statics:/SPA/assets/bundles
+
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile.prod
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+     - statics:/wwwroot
+
+volumes:
+  statics:
+    driver: 'local'
